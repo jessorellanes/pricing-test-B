@@ -247,15 +247,17 @@
             position: relative;
         }
         .card.disabled .annual-only-overlay {
-            position: absolute;
-            top: 40%;
-            left: 25%;
+            position: relative;
+            top: -50%;
+            left: auto;
             background: white;
             border: 1px solid var(--text-main);
             padding: 0.5rem 1rem;
             font-weight: 700;
             font-size: 1.1rem;
             z-index: 2;
+            witdh: 210px;
+            transform: rotate(-10deg);
         }
 
         .card-header {
