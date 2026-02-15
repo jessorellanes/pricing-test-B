@@ -18,7 +18,7 @@
             --background: #f9fafb;
             --border: #e5e7eb;
             --text-main: #333333;
-            --text-muted: #4b5563;
+            --text-muted: #717a86;
             --check-pink: #ec4899;
             --radius: 8px;
             --radius-lg: 12px;
@@ -122,13 +122,15 @@
         .hero-compact .editor-note {
             color: var(--text-muted);
             font-size: 1.05rem;
-            margin-bottom: 0.9rem;
+            margin-bottom: 0.7rem;
         }
         .hero-compact .editor-note strong { color: var(--text-main); }
         .hero-compact .billing-toggle { margin-bottom: 0.9rem; }
         .hero-compact .credits-note {
             color: var(--text-muted);
             font-size: 0.95rem;
+            margin-bottom: 0.7rem;
+            font-style: italic;
         }
 
         /* Video embed */
@@ -195,7 +197,7 @@
             border: 1px solid var(--border);
             border-radius: 999px;
             overflow: hidden;
-            margin-bottom: 2rem;
+            margin-bottom: 0.9rem;
         }
         .billing-toggle button {
             padding: 0.5rem 1.5rem;
@@ -275,6 +277,7 @@
             color: var(--text-muted);
             font-size: 0.95rem;
             margin-bottom: 0.9rem;
+            font-style: italic;
         }
         .card .summary {
             color: var(--text-muted);
@@ -283,12 +286,12 @@
             flex: 1;
         }
 
-        .features { list-style: none; flex: 1; }
+        .features { list-style: none; flex: 1; margin-bottom: 1rem;}
         .features li {
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.7rem;
             font-size: 0.95rem;
         }
         .features li .material-symbols-outlined {
@@ -550,11 +553,11 @@
             <div class="hero-compact">
                 <h1>Choose your plan</h1>
                 <p class="editor-note">Pricing is <strong>per editor</strong> (people who create and edit). Viewers and commenters are always free.</p>
+                <p class="credits-note">Additional AI credits can be bought for $5 for 1,000 credits (enough to generate around 70 screens).</p>
                 <div class="billing-toggle">
                     <button @click="page = 'annual'">Annual billing</button>
                     <button class="active" @click="page = 'monthly'">Monthly billing</button>
                 </div>
-                <p class="credits-note">Additional AI credits can be bought for $5 for 1,000 credits (enough to generate around 70 screens).</p>
             </div>
 
             <div class="cards-grid">
