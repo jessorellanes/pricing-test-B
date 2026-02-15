@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Serif:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        [x-cloak] { display: none !important; }
+
+        :root {
+            --primary: rgb(190, 24, 93);
+            --primary-light: rgba(190, 24, 93, 0.08);
+            --surface: #ffffff;
+            --background: #f9fafb;
+            --border: #e5e7eb;
+            --text-main: #333333;
+            --text-muted: #4b5563;
+            --check-pink: #ec4899;
+            --radius: 8px;
+            --radius-lg: 12px;
+        }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background: var(--background);
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1rem;
+        }
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .logo .material-symbols-outlined { color: var(--primary); }
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .back-btn:hover { color: var(--text-main); }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+            font-size: 0.95rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-primary-lg {
+            width: 100%;
+            padding: 0.75rem 1.25rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-top: auto;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Hero */
+        .hero { text-align: center; margin-bottom: 2rem; }
+        .hero h1 {
+            font-family: 'Noto Serif', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .hero .tagline { color: var(--text-muted); }
+        .hero .tagline strong { color: #311C3B; }
+
+        /* Compact hero for pricing pages */
+        .hero-compact { text-align: center; margin-bottom: 1rem; }
+        .hero-compact h1 {
+            font-family: 'Noto Serif', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+        .hero-compact .editor-note {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 0.9rem;
+        }
+        .hero-compact .editor-note strong { color: var(--text-main); }
+        .hero-compact .billing-toggle { margin-bottom: 0.9rem; }
+        .hero-compact .credits-note {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Video embed */
+        .video-wrapper {
+            max-width: 900px;
+            margin: 0 auto 2.5rem;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+        .video-wrapper iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: none;
+            display: block;
+        }
+
+        /* Value Props */
+        .value-props {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+        .value-prop h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .value-prop ul { list-style: none; }
+        .value-prop li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .value-prop li .material-symbols-outlined {
+            color: var(--check-pink);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .value-prop li strong { color: var(--text-main); }
+        .team-section { margin-top: 2rem; }
+        .team-section h3 { font-weight: 700; margin-bottom: 0.5rem; }
+        .team-section p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Page footer CTA */
+        .page-footer {
+            text-align: center;
+            padding: 1rem 0 3rem;
+        }
+        .page-footer .btn-primary {
+            padding: 0.75rem 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Billing toggle */
+        .billing-toggle {
+            display: inline-flex;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .billing-toggle button {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+        .billing-toggle button.active {
+            background: rgba(190, 24, 93, 0.08);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Info banner */
+        .info-banner {
+            border: 1px solid var(--primary);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, rgba(190,24,93,0.03), rgba(190,24,93,0.06));
+        }
+        .info-banner p { color: var(--text-muted); font-size: 0.95rem; }
+        .info-banner strong { color: var(--text-main); }
+
+        /* Pricing cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 1.75rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            position: relative;
+        }
+        .card.disabled {
+            opacity: 0.45;
+            position: relative;
+        }
+        .card.disabled .annual-only-overlay {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            border: 2px solid var(--text-main);
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            z-index: 2;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.6rem;
+        }
+        .card h2 { font-size: 1.5rem; font-weight: 700; }
+        .card .billed { font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
+        .card .price { margin-bottom: 0.6rem; }
+        .card .price .amount { font-size: 2.4rem; font-weight: 700; }
+        .card .price .period { color: var(--text-muted); font-size: 1rem; }
+        .card .description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 0.9rem;
+        }
+        .card .summary {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .features { list-style: none; flex: 1; }
+        .features li {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        .features li .material-symbols-outlined {
+            color: var(--check-pink);
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+        .features .tier-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+
+        .footer-note {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1rem;
+            padding: 1rem 0 1.75rem;
+        }
+
+        .spacer { width: 5rem; }
+
+        @media (max-width: 768px) {
+            .value-props { grid-template-columns: 1fr; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body x-data="{ page: 'video' }">
+
+    <!-- ==================== PAGE 1: VIDEO + FEATURES ==================== -->
+    <div x-show="page === 'video'" x-cloak>
+        <div class="container" style="padding-top: 2rem;">
+            <div class="hero">
+                <h1>Fast wireframing and prototyping for better product decisions</h1>
+                <p class="tagline">Built for product teams, <strong>No steep learning curve, no design hassle.</strong></p>
+            </div>
+
+            <div class="video-wrapper">
+                <iframe src="https://share.descript.com/embed/Bkw4HdFlcy0" allowfullscreen></iframe>
+            </div>
+
+            <div class="value-props">
+                <div class="value-prop">
+                    <h3>Get from idea to interactive prototypes in minutes</h3>
+                    <ul>
+                        <li><span class="material-symbols-outlined">check</span> Use AI to generate editable wireframes from a prompt or screenshot</li>
+                        <li><span class="material-symbols-outlined">check</span> You can also build manually with drag and drop UI elements</li>
+                        <li><span class="material-symbols-outlined">check</span> <strong>Turn your wireframes into interactive prototypes with a prompt</strong></li>
+                    </ul>
+                </div>
+                <div class="value-prop">
+                    <h3>Test and refine before committing to detailed design</h3>
+                    <ul>
+                        <li><span class="material-symbols-outlined">check</span> Start intentionally low-fidelity, so teams can focus on functionality</li>
+                        <li><span class="material-symbols-outlined">check</span> Edit AI-generated wireframes manually, or use follow-up prompts</li>
+                    </ul>
+                    <div class="team-section">
+                        <h3>Get your whole team on the same page</h3>
+                        <p>Invite teammates to review and comment — it's free</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <button class="btn-primary" @click="page = 'main'">View Plans</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 2: PLANS (No Prices, Cards Above Fold) ==================== -->
+    <div x-show="page === 'main'" x-cloak>
+        <header class="header">
+            <div class="header-inner">
+                <button class="back-btn" @click="page = 'video'">
+                    <span class="material-symbols-outlined">arrow_back</span> Back
+                </button>
+                <div class="logo"></div>
+                <button class="btn-primary" @click="page = 'annual'">View Pricing</button>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="hero" style="margin-bottom: 1.5rem;">
+                <h1>Choose your plan</h1>
+                <p class="tagline">Pricing is <strong>per editor</strong> (people who create and edit). Viewers and commenters are always free.</p>
+            </div>
+
+            <div class="cards-grid">
+                <!-- Pro -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Pro</h2>
+                        <span class="billed">billed annually</span>
+                    </div>
+                    <p class="description">For individuals and small teams</p>
+                    <ul class="features">
+                        <li><span class="material-symbols-outlined">check</span> Up to 20 projects</li>
+                        <li><span class="material-symbols-outlined">check</span> 1,000 monthly AI credits</li>
+                        <li><span class="material-symbols-outlined">check</span> Unlimited viewers/commenters</li>
+                        <li><span class="material-symbols-outlined">check</span> Slack integration</li>
+                        <li><span class="material-symbols-outlined">check</span> Custom, reusable UI components</li>
+                        <li><span class="material-symbols-outlined">check</span> Export to PDF or image</li>
+                        <li><span class="material-symbols-outlined">check</span> Pause plan anytime</li>
+                    </ul>
+                </div>
+
+                <!-- Business -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Business</h2>
+                        <span class="billed">billed annually</span>
+                    </div>
+                    <p class="description">For growing teams</p>
+                    <ul class="features">
+                        <li class="tier-label">EVERYTHING IN PRO</li>
+                        <li><span class="material-symbols-outlined">check</span> Up to 100 projects</li>
+                        <li><span class="material-symbols-outlined">check</span> 3,000 monthly AI credits</li>
+                        <li><span class="material-symbols-outlined">check</span> Billing admin role &amp; permissions</li>
+                        <li><span class="material-symbols-outlined">check</span> Fast support</li>
+                    </ul>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Enterprise</h2>
+                        <span class="billed">billed annually</span>
+                    </div>
+                    <p class="description">For larger organizations</p>
+                    <ul class="features">
+                        <li class="tier-label">EVERYTHING IN BUSINESS</li>
+                        <li><span class="material-symbols-outlined">check</span> Up to 400 projects</li>
+                        <li><span class="material-symbols-outlined">check</span> 6,000 monthly AI credits</li>
+                        <li><span class="material-symbols-outlined">check</span> SSO with SAML</li>
+                        <li><span class="material-symbols-outlined">check</span> Legal &amp; security review support</li>
+                        <li><span class="material-symbols-outlined">check</span> Data storage in US or EU</li>
+                        <li><span class="material-symbols-outlined">check</span> Priority support</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-note">All plans billed annually. Additional AI credits can be bought.</div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 3: ANNUAL PRICING ==================== -->
+    <div x-show="page === 'annual'" x-cloak>
+        <header class="header">
+            <div class="header-inner">
+                <button class="back-btn" @click="page = 'main'">
+                    <span class="material-symbols-outlined">arrow_back</span> Back
+                </button>
+                <div class="logo"></div>
+                <div class="spacer"></div>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="hero-compact">
+                <h1>Choose your plan</h1>
+                <p class="editor-note">Pricing is <strong>per editor</strong> (people who create and edit). Viewers and commenters are always free.</p>
+                <div class="billing-toggle">
+                    <button class="active" @click="page = 'annual'">Annual billing</button>
+                    <button @click="page = 'monthly'">Monthly billing</button>
+                </div>
+                <p class="credits-note">Additional AI credits can be bought for $5 for 1,000 credits (enough to generate around 70 screens).</p>
+            </div>
+
+            <div class="cards-grid">
+                <!-- Pro Annual -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Pro</h2>
+                        <span class="billed">billed annually</span>
+                    </div>
+                    <div class="price">
+                        <span class="amount">$16</span>
+                        <span class="period">/editor/month</span>
+                    </div>
+                    <p class="description">For individuals and small teams</p>
+                    <ul class="features">
+                        <li><span class="material-symbols-outlined">check</span> Up to 20 projects</li>
+                        <li><span class="material-symbols-outlined">check</span> 1,000 monthly AI credits</li>
+                        <li><span class="material-symbols-outlined">check</span> Unlimited viewers/commenters</li>
+                        <li><span class="material-symbols-outlined">check</span> Slack integration</li>
+                        <li><span class="material-symbols-outlined">check</span> Custom, reusable UI components</li>
+                        <li><span class="material-symbols-outlined">check</span> Export to PDF or image</li>
+                        <li><span class="material-symbols-outlined">check</span> Pause plan anytime</li>
+                    </ul>
+                    <button class="btn-primary btn-primary-lg">Start your 14-day trial</button>
+                </div>
+
+                <!-- Business Annual -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Business</h2>
+                        <span class="billed">billed annually</span>
+                    </div>
+                    <div class="price">
+                        <span class="amount">$24</span>
+                        <span class="period">/editor/month</span>
+                    </div>
+                    <p class="description">For growing teams</p>
+                    <ul class="features">
+                        <li class="tier-label">EVERYTHING IN PRO</li>
+                        <li><span class="material-symbols-outlined">check</span> Up to 100 projects</li>
+                        <li><span class="material-symbols-outlined">check</span> 3,000 monthly AI credits</li>
+                        <li><span class="material-symbols-outlined">check</span> Billing admin role &amp; permissions</li>
+                        <li><span class="material-symbols-outlined">check</span> Fast support</li>
+                    </ul>
+                    <button class="btn-primary btn-primary-lg">Start your 14-day trial</button>
+                </div>
+
+                <!-- Enterprise Annual -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Enterprise</h2>
+                        <span class="billed">billed annually</span>
+                    </div>
+                    <div class="price">
+                        <span class="amount">$35</span>
+                        <span class="period">/editor/month</span>
+                    </div>
+                    <p class="description">For larger organizations</p>
+                    <ul class="features">
+                        <li class="tier-label">EVERYTHING IN BUSINESS</li>
+                        <li><span class="material-symbols-outlined">check</span> Up to 400 projects</li>
+                        <li><span class="material-symbols-outlined">check</span> 6,000 monthly AI credits</li>
+                        <li><span class="material-symbols-outlined">check</span> SSO with SAML</li>
+                        <li><span class="material-symbols-outlined">check</span> Legal &amp; security review support</li>
+                        <li><span class="material-symbols-outlined">check</span> Data storage in US or EU</li>
+                        <li><span class="material-symbols-outlined">check</span> Priority support</li>
+                    </ul>
+                    <button class="btn-primary btn-primary-lg">Start your 14-day trial</button>
+                </div>
+            </div>
+
+            <div class="footer-note">All plans billed annually</div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 4: MONTHLY PRICING ==================== -->
+    <div x-show="page === 'monthly'" x-cloak>
+        <header class="header">
+            <div class="header-inner">
+                <button class="back-btn" @click="page = 'main'">
+                    <span class="material-symbols-outlined">arrow_back</span> Back
+                </button>
+                <div class="logo"></div>
+                <div class="spacer"></div>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="hero-compact">
+                <h1>Choose your plan</h1>
+                <p class="editor-note">Pricing is <strong>per editor</strong> (people who create and edit). Viewers and commenters are always free.</p>
+                <div class="billing-toggle">
+                    <button @click="page = 'annual'">Annual billing</button>
+                    <button class="active" @click="page = 'monthly'">Monthly billing</button>
+                </div>
+                <p class="credits-note">Additional AI credits can be bought for $5 for 1,000 credits (enough to generate around 70 screens).</p>
+            </div>
+
+            <div class="cards-grid">
+                <!-- Pro Monthly -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Pro</h2>
+                    </div>
+                    <div class="price">
+                        <span class="amount">$23</span>
+                        <span class="period">/editor/month</span>
+                    </div>
+                    <p class="description">For individuals and small teams</p>
+                    <ul class="features">
+                        <li><span class="material-symbols-outlined">check</span> Up to 20 projects</li>
+                        <li><span class="material-symbols-outlined">check</span> 1,000 monthly AI credits</li>
+                        <li><span class="material-symbols-outlined">check</span> Unlimited viewers/commenters</li>
+                        <li><span class="material-symbols-outlined">check</span> Slack integration</li>
+                        <li><span class="material-symbols-outlined">check</span> Custom, reusable UI components</li>
+                        <li><span class="material-symbols-outlined">check</span> Export to PDF or image</li>
+                        <li><span class="material-symbols-outlined">check</span> Pause plan anytime</li>
+                    </ul>
+                    <button class="btn-primary btn-primary-lg">Start your 14-day trial</button>
+                </div>
+
+                <!-- Business Monthly -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Business</h2>
+                    </div>
+                    <div class="price">
+                        <span class="amount">$34</span>
+                        <span class="period">/editor/month</span>
+                    </div>
+                    <p class="description">For growing teams</p>
+                    <ul class="features">
+                        <li class="tier-label">EVERYTHING IN PRO</li>
+                        <li><span class="material-symbols-outlined">check</span> Up to 100 projects</li>
+                        <li><span class="material-symbols-outlined">check</span> 3,000 monthly AI credits</li>
+                        <li><span class="material-symbols-outlined">check</span> Billing admin role &amp; permissions</li>
+                        <li><span class="material-symbols-outlined">check</span> Fast support</li>
+                    </ul>
+                    <button class="btn-primary btn-primary-lg">Start your 14-day trial</button>
+                </div>
+
+                <!-- Enterprise Monthly (disabled) -->
+                <div class="card disabled">
+                    <div class="card-header">
+                        <h2>Enterprise</h2>
+                    </div>
+                    <div class="price">
+                        <span class="amount">$49</span>
+                        <span class="period">/editor/month</span>
+                    </div>
+                    <p class="description">For larger organizations</p>
+                    <ul class="features">
+                        <li class="tier-label">EVERYTHING IN BUSINESS</li>
+                        <li><span class="material-symbols-outlined">check</span> Up to 400 projects</li>
+                        <li><span class="material-symbols-outlined">check</span> 6,000 monthly AI credits</li>
+                        <li><span class="material-symbols-outlined">check</span> SSO with SAML</li>
+                        <li><span class="material-symbols-outlined">check</span> Legal &amp; security review support</li>
+                        <li><span class="material-symbols-outlined">check</span> Data storage in US or EU</li>
+                        <li><span class="material-symbols-outlined">check</span> Priority support</li>
+                    </ul>
+                    <div class="annual-only-overlay">Annual Billing Only</div>
+                </div>
+            </div>
+
+            <div class="footer-note">All plans billed monthly</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {});
+    </script>
+</body>
+</html>
